@@ -42,30 +42,47 @@
 - Protected Route (/auth/me)
 - HTTPBearer Authentication
 
+### Ticket Management
+- Ticket Schemas
+- Ticket Status Enum Validation
+- Ticket Priority Enum Validation
+- Create Ticket API (`POST /tickets`)
+- Get User Tickets API (`GET /tickets`)
+- Get Ticket Details API (`GET /tickets/{id}`)
+- Update Ticket Status API (`PATCH /tickets/{id}`)
+- Ticket Ownership Validation
+- 404 Error Handling
+
 ---
 
 ## In Progress
 
-- Ticket Management Module
+- Role-Based Access Control (RBAC)
 
 ---
 
 ## Next
 
-### Ticket Module
-- Ticket Schemas
-- Create Ticket API
-- Get User Tickets API
-- Get Ticket Details API
-- Update Ticket Status API
-
-### Future
-- Role-Based Access Control
+### Admin Module
+- Admin Role Dependency
+- Get All Tickets API
+- Update Any Ticket API
 - Admin Ticket Management
-- Ticket Priority
+
+### Quality Improvements
 - Search & Filters
 - Pagination
+- Ticket Priority Updates
+- Better Response Schemas
+- Logging Improvements
+
+### Future
 - Frontend Integration
+- Docker
+- CI/CD
+- Email Notifications
+- File Attachments
+- Analytics Dashboard
 
 ---
 
@@ -77,7 +94,7 @@ main
 
 ## Version
 
-v0.2.0
+v0.3.0
 
 ---
 
@@ -89,8 +106,14 @@ v0.2.0
 
 ## Current Milestone
 
-Authentication Module Completed ✅
+Ticket Management Module Completed ✅
 
-Next Milestone:
+### Completed Versions
 
-Ticket Management Module
+- v0.1.0 Foundation ✅
+- v0.2.0 Authentication ✅
+- v0.3.0 Ticket Management ✅
+
+### Next Milestone
+
+v0.4.0 Role-Based Access Control (RBAC) & Admin Module

@@ -11,7 +11,7 @@ A production-oriented Ticket Management System built with FastAPI, PostgreSQL, S
 Current Version:
 
 ```text
-v0.2.0
+v0.3.0
 ```
 
 Completed:
@@ -24,16 +24,17 @@ Completed:
 - User Registration
 - Login API
 - Protected Routes
+- Ticket Management Module
 
 In Progress:
 
-- Ticket Management Module
+- Role-Based Access Control (RBAC)
 
 ---
 
 ## Features
 
-### Authentication
+### Authentication ✅
 
 - User Registration
 - Login
@@ -42,20 +43,22 @@ In Progress:
 - Protected Endpoints
 - Current User Endpoint
 
-### Ticket Management (Upcoming)
+### Ticket Management ✅
 
 - Create Ticket
-- View Tickets
-- Ticket Details
+- View User Tickets
+- View Ticket Details
 - Update Ticket Status
 - Priority Management
+- Status Validation
+- Ownership Validation
 
 ### Admin Features (Upcoming)
 
 - View All Tickets
-- Assign Tickets
-- Update Ticket Status
-- User Management
+- Manage All Tickets
+- Update Any Ticket Status
+- Role-Based Access Control
 
 ---
 
@@ -68,8 +71,8 @@ In Progress:
 - PostgreSQL
 - Alembic
 - Pydantic v2
-- JWT
-- Passlib
+- JWT (python-jose)
+- Passlib + bcrypt
 
 ### Database
 
@@ -93,10 +96,25 @@ ticket-management-system/
 │   ├── alembic/
 │   ├── app/
 │   │   ├── api/
+│   │   │   ├── auth.py
+│   │   │   └── tickets.py
+│   │   │
 │   │   ├── core/
+│   │   │   ├── config.py
+│   │   │   └── security.py
+│   │   │
 │   │   ├── db/
+│   │   │   ├── database.py
+│   │   │   └── dependencies.py
+│   │   │
 │   │   ├── models/
+│   │   │   ├── user.py
+│   │   │   └── ticket.py
+│   │   │
 │   │   ├── schemas/
+│   │   │   ├── user.py
+│   │   │   └── ticket.py
+│   │   │
 │   │   └── main.py
 │   │
 │   ├── .env.example
@@ -109,6 +127,7 @@ ticket-management-system/
 ├── PROJECT_STATUS.md
 ├── ARCHITECTURE.md
 ├── CHANGELOG.md
+├── LICENSE
 └── README.md
 ```
 
@@ -136,10 +155,58 @@ POST /auth/login
 GET /auth/me
 ```
 
+---
+
+### Ticket Management
+
+#### Create Ticket
+
+```http
+POST /tickets
+```
+
+#### Get User Tickets
+
+```http
+GET /tickets
+```
+
+#### Get Ticket Details
+
+```http
+GET /tickets/{id}
+```
+
+#### Update Ticket Status
+
+```http
+PATCH /tickets/{id}
+```
+
+---
+
+### System
+
 #### Database Health
 
 ```http
 GET /health/db
+```
+
+---
+
+## Authentication Flow
+
+```text
+Register
+↓
+Login
+↓
+Receive JWT Token
+↓
+Authorize Requests
+↓
+Access Protected Endpoints
 ```
 
 ---
@@ -218,10 +285,8 @@ http://127.0.0.1:8000/redoc
 
 ## Database Workflow
 
-Models are managed using:
-
 ```text
-SQLAlchemy
+SQLAlchemy Models
 ↓
 Alembic Migration
 ↓
@@ -244,22 +309,30 @@ alembic upgrade head
 
 ## Development Roadmap
 
-### v0.2.0
+### v0.1.0 ✅
 
-- Authentication Module ✅
+- Foundation Setup
 
-### v0.3.0
+### v0.2.0 ✅
 
-- Ticket CRUD APIs
-- Ticket Status Management
-- Priority Levels
+- Authentication Module
 
-### v0.4.0
+### v0.3.0 ✅
+
+- Ticket Management Module
+
+### v0.4.0 ⏳
 
 - Role-Based Access Control
-- Admin Ticket Dashboard
+- Admin Ticket Management
 
 ### v0.5.0
+
+- Search & Filters
+- Pagination
+- Improved API Responses
+
+### v0.6.0
 
 - Frontend Integration
 

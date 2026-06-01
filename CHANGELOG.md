@@ -4,6 +4,49 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.3.0] - 2026-06-01
+
+### Added
+
+#### Ticket Management Module
+
+- Ticket schemas
+- Ticket status validation using enums
+- Ticket priority validation using enums
+- Create Ticket API (`POST /tickets`)
+- Get User Tickets API (`GET /tickets`)
+- Get Ticket Details API (`GET /tickets/{id}`)
+- Update Ticket Status API (`PATCH /tickets/{id}`)
+- Ticket ownership validation
+- Protected ticket endpoints
+- Ticket priority support
+- Automatic ticket-user association
+
+### Validation
+
+- Ticket status enum validation
+- Ticket priority enum validation
+- Ticket existence validation
+- Ticket ownership authorization
+
+### Error Handling
+
+- 404 Ticket Not Found handling
+- Unauthorized access prevention
+- Invalid status validation
+
+### Verified
+
+- Ticket creation working
+- Ticket listing working
+- Ticket details retrieval working
+- Ticket status updates working
+- Ownership validation working
+- Status validation working
+- 404 handling working
+
+---
+
 ## [0.2.0] - 2026-06-01
 
 ### Added
@@ -119,23 +162,23 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## Upcoming [0.3.0]
+## Upcoming [0.4.0]
 
-### Ticket Management Module
+### Role-Based Access Control (RBAC)
 
-- Create Ticket API
-- Get User Tickets API
-- Get Ticket Details API
-- Update Ticket Status API
-- Ticket Priority Support
+- Admin role dependency
+- Admin-only routes
+- View all tickets
+- Update any ticket
+- Admin ticket management
 
 ### Future
 
-- Role-Based Access Control
-- Admin Dashboard APIs
-- Pagination
 - Search & Filters
+- Pagination
 - Frontend Integration
-- Deployment
 - Docker Support
 - CI/CD Pipeline
+- Email Notifications
+- File Attachments
+- Analytics Dashboard
