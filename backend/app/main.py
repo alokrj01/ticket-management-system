@@ -1,12 +1,17 @@
 from fastapi import FastAPI
+from sqlalchemy import text
+from app.core.config import settings
+from app.db.database import engine
 
 app = FastAPI(
-  title="Ticket Management System API",
-  version="0.1.0"
+  title=settings.APP_NAME
 )
 
-@app.get("/")
-def root():
+@app.get("/health/db")
+def database_health():
+  with engine.connect() as conn:
+    conn.execute(text("SELECT 1"))
+
   return{
-    "message": "Ticket Management System API"
+     "status": "connected"
   }

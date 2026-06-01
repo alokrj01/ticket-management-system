@@ -7,16 +7,23 @@
 - Git initialization
 - FastAPI steup
 - First API Endpoint
+- PostgreSQL connection
+- Environment configuration
+- Supabase connection
+- SQLAlchemy setup
+- Alembic setup
+- Initial database schema
 
 ## In Progress
 
-- backend foundation 
+- Authentication module
 
 ## Next
 
-- PostgreSQL Connection
-- SQLAlchemy
-- Alembic
+- User schemas
+- Password hashing
+- Registration API
+- JWT login
 
 ## Current Branch
 
