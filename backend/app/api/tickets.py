@@ -5,10 +5,15 @@ from app.db.dependencies import get_db
 from app.models.ticket import Ticket
 from app.models.user import User
 
+#from typing import Optional
+from fastapi import Query
+
 from app.schemas.ticket import (
     TicketCreate,
     TicketUpdate,
-    TicketResponse
+    TicketResponse,
+    TicketStatus,
+    TicketPriority
 )
 
 from app.api.dependencies import (
@@ -43,22 +48,54 @@ def create_ticket(
 
     return ticket
 
+
 @router.get(
     "",
     response_model=list[TicketResponse]
 )
 def get_tickets(
+    page: int = Query(1, ge=1),
+    limit: int = Query(10, ge=1, le=100),
+
+    status: TicketStatus | None = None,
+    priority: TicketPriority | None = None,
+    search: str | None = None,
+
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
+    
+    query = db.query(Ticket).filter(
+        Ticket.user_id == current_user.id
+        )
+    
+    if status:
+        query = query.filter(
+            Ticket.status == status
+        )
+
+    if priority:
+        query = query.filter(
+            Ticket.priority == priority
+        )
+
+    if search:
+        query = query.filter(
+            Ticket.title.ilike(f"%{search}%")
+        )
+
+    offset = (page - 1) * limit
+
     tickets = (
-        db.query(Ticket)
-        .filter(Ticket.user_id == current_user.id)
+        query
         .order_by(Ticket.created_at.desc())
+        .offset(offset)
+        .limit(limit)
         .all()
     )
 
     return tickets
+
 
 @router.get(
     "/{ticket_id}",
@@ -85,6 +122,7 @@ def get_ticket(
         )
 
     return ticket
+
 
 @router.patch(
     "/{ticket_id}",

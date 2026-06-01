@@ -11,7 +11,7 @@ A production-oriented Ticket Management System built with FastAPI, PostgreSQL, S
 Current Version:
 
 ```text
-v0.3.0
+v0.4.0
 ```
 
 Completed:
