@@ -1,10 +1,12 @@
 {
   "recommendations": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "bradlc.vscode-tailwindcss",
     "usernamehw.errorlens",
-    "Prisma.prisma",
+    //"Prisma.prisma",
     "mikestead.dotenv",
     "ms-ossdata.vscode-postgresql",
     "eamodio.gitlens",

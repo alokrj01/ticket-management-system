@@ -14,22 +14,22 @@
     "typescriptreact"
   ],
 
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+
+  "editor.wordWrap": "on",
+
+  "editor.minimap.enabled": false,
+
+  "files.autoSave": "off",
+
   "files.exclude": {
     "**/.git": true,
     "**/.DS_Store": true
   },
 
   "explorer.confirmDelete": true,
-
   "explorer.confirmDragAndDrop": false,
-
-  "editor.tabSize": 2,
-
-  "editor.insertSpaces": true,
-
-  "editor.wordWrap": "on",
-
-  "editor.minimap.enabled": false,
 
   "terminal.integrated.defaultProfile.linux": "bash",
 
@@ -41,5 +41,7 @@
     "strings": true
   },
 
-  "files.autoSave": "off"
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  }
 }
