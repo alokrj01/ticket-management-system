@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "usernamehw.errorlens",
+    "Prisma.prisma",
+    "mikestead.dotenv",
+    "ms-ossdata.vscode-postgresql",
+    "eamodio.gitlens",
+    "rangav.vscode-thunder-client",
+    "christian-kohler.path-intellisense",
+    "PKief.material-icon-theme"
+  ]
+}
