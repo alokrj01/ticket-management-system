@@ -70,20 +70,23 @@ All notable changes to this project will be documented in this file.
 - Alembic migrations working
 - Tables created successfully
 
+### [0.2.0] Authentication Module 
+
+- User registration
+- Password hashing
+- Login endpoint
+- JWT access tokens
+- Protected routes
+- Current user endpoint
+
 ---
 
 ## Upcoming (0.2.0)
 
-### Authentication Module
-- User Registration API
-- Password Hashing (bcrypt)
-- Login API
-- JWT Authentication
-- Access Token Generation
-- Protected Routes
+### Ticket CRUD APIs
+
 
 ### Future
-- Ticket CRUD APIs
 - Role-Based Access Control
 - Admin Dashboard APIs
 - Pagination
