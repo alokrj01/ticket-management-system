@@ -62,30 +62,42 @@
 - Admin Role Validation
 - 403 Forbidden Handling
 
+### API Quality Improvements
+- Pagination Support (`page`, `limit`)
+- Status Filtering
+- Priority Filtering
+- Search by Ticket Title
+- Sorting Support
+- Combined Query Support
+- Query Parameter Validation
+
 ---
 
 ## In Progress
 
-- API Quality Improvement
+- Frontend Planning
 
 ---
 
 ## Next
 
-### API Improvements
-- Pagination
-- Search & Filters
-- Sorting
-- Better Response Schemas
-- Logging Improvements
+### Frontend Integration
+- React Setup
+- TypeScript Setup
+- Authentication UI
+- Ticket Dashboard
+- Admin Dashboard
 
-### Future
-- Frontend Integration
+### DevOps
 - Docker
 - CI/CD
+- Deployment
+
+### Future
 - Email Notifications
 - File Attachments
 - Analytics Dashboard
+- Audit Logs
 
 ---
 
@@ -97,7 +109,7 @@ main
 
 ## Version
 
-v0.4.0
+v0.5.0
 
 ---
 
@@ -109,7 +121,7 @@ v0.4.0
 
 ## Current Milestone
 
-RBAC + Admin Module Completed ✅
+API Quality Improvements Completed ✅
 
 ### Completed Versions
 
@@ -117,15 +129,17 @@ RBAC + Admin Module Completed ✅
 - v0.2.0 Authentication ✅
 - v0.3.0 Ticket Management ✅
 - v0.4.0 RBAC + Admin Module ✅
+- v0.5.0 API Quality Improvements ✅
 
 ### Next Milestone
 
-v0.5.0 API Quality Improvements
+v0.6.0 Frontend Integration
 
 #### Planned Features
 
-- Pagination
-- Search
-- Filters
-- Sorting
-- Improved Response Models
+- React + TypeScript Setup
+- Login Page
+- Register Page
+- User Ticket Dashboard
+- Admin Dashboard
+- API Integration

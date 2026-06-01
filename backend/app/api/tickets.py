@@ -13,7 +13,8 @@ from app.schemas.ticket import (
     TicketUpdate,
     TicketResponse,
     TicketStatus,
-    TicketPriority
+    TicketPriority,
+    TicketSort
 )
 
 from app.api.dependencies import (
@@ -61,6 +62,8 @@ def get_tickets(
     priority: TicketPriority | None = None,
     search: str | None = None,
 
+    sort: TicketSort | None = None,
+
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
@@ -84,11 +87,31 @@ def get_tickets(
             Ticket.title.ilike(f"%{search}%")
         )
 
+    #sorting logic
+    if sort == "created_at":
+        query = query.order_by(
+            Ticket.created_at.asc()
+        )
+
+    elif sort == "-created_at":
+        query = query.order_by(
+            Ticket.created_at.desc()
+        )
+
+    elif sort == "priority":
+        query = query.order_by(
+            Ticket.priority.asc()
+        )
+
+    else:
+        query = query.order_by(
+            Ticket.created_at.desc()
+        )
+
     offset = (page - 1) * limit
 
     tickets = (
         query
-        .order_by(Ticket.created_at.desc())
         .offset(offset)
         .limit(limit)
         .all()

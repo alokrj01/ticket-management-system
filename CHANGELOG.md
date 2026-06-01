@@ -4,6 +4,51 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [0.5.0] - 2026-06-01
+
+### Added
+
+#### API Quality Improvements
+
+- Pagination support (`page`, `limit`)
+- Status filtering (`?status=open`)
+- Priority filtering (`?priority=high`)
+- Search support (`?search=laptop`)
+- Sorting support (`?sort=created_at`)
+- Descending sorting (`?sort=-created_at`)
+- Combined query support
+- Query parameter validation
+
+### Filtering
+
+- Filter tickets by status
+- Filter tickets by priority
+- Search tickets by title
+- Combine multiple filters in a single request
+
+### Pagination
+
+- Page-based pagination
+- Configurable page size
+- Offset-based query optimization
+
+### Sorting
+
+- Sort by creation date (ascending)
+- Sort by creation date (descending)
+- Sort by priority
+
+### Verified
+
+- Pagination working
+- Status filtering working
+- Priority filtering working
+- Search functionality working
+- Sorting functionality working
+- Combined filters working
+- Query parameters validated correctly
+
+---
 
 ## [0.4.0] - 2026-06-01
 
@@ -199,23 +244,22 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## Upcoming [0.5.0]
+## Upcoming [0.6.0]
 
-### API Quality Improvements
+### Frontend Integration
 
-- Pagination
-- Search
-- Filters
-- Sorting
-- Better Response Schemas
+- React Setup
+- TypeScript Setup
+- Authentication Pages
+- User Dashboard
+- Admin Dashboard
+- API Integration
 
 ### Future
 
-- Search & Filters
-- Pagination
-- Frontend Integration
 - Docker Support
 - CI/CD Pipeline
 - Email Notifications
 - File Attachments
 - Analytics Dashboard
+- Audit Logs

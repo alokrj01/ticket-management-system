@@ -11,7 +11,7 @@ A production-oriented Ticket Management System built with FastAPI, PostgreSQL, S
 Current Version:
 
 ```text
-v0.4.0
+v0.5.0
 ```
 
 Completed:
@@ -27,10 +27,14 @@ Completed:
 - Ticket Management Module
 - Role-Based Access Control (RBAC)
 - Admin Module
+- Pagination
+- Search
+- Filters
+- Sorting
 
 In Progress:
 
-- API Quality Improvements
+- Frontend Integration
 
 ---
 
@@ -203,6 +207,73 @@ PATCH /admin/tickets/{id}
 ```
 ---
 
+### Update Features Section
+
+Add:
+
+```md
+### API Quality Improvements ✅
+
+- Pagination
+- Status Filtering
+- Priority Filtering
+- Ticket Search
+- Sorting
+- Combined Query Support
+
+#### Get User Tickets
+
+```http
+GET /tickets
+
+GET /tickets?page=1&limit=10
+
+GET /tickets?status=open
+
+GET /tickets?priority=high
+
+GET /tickets?search=laptop
+
+GET /tickets?sort=created_at
+
+GET /tickets?sort=-created_at
+
+GET /tickets?status=open&priority=high&page=1&limit=5
+```
+---
+
+### Add API Features Section
+
+```md
+## API Features
+
+### Pagination
+
+```http
+GET /tickets?page=1&limit=10
+```
+### Status Filter
+```http
+GET /tickets?status=open 
+```
+### Priority Filter
+```http
+GET /tickets?priority=high
+```
+### Search
+```http
+GET /tickets?search=laptop
+```
+### Sorting
+```http
+GET /tickets?sort=created_at
+
+GET /tickets?sort=-created_at
+
+GET /tickets?sort=priority
+```
+---
+
 ## Authentication Flow
 
 ```text
@@ -334,13 +405,14 @@ alembic upgrade head
 - Role-Based Access Control
 - Admin Ticket Management
 
-### v0.5.0 ⏳
+### v0.5.0 ✅
 
 - Search & Filters
 - Pagination
-- Improved API Responses
+- Filters
+- Sorting
 
-### v0.6.0
+### v0.6.0 ⏳
 
 - Frontend Integration
 

@@ -12,6 +12,11 @@ class TicketPriority(str, Enum):
     medium = "medium"
     high = "high"
 
+class TicketSort(str, Enum):
+    created_at = "created_at"
+    desc_created_at = "-created_at"
+    priority = "priority"
+
 class TicketCreate(BaseModel):
     title: str
     description: str
