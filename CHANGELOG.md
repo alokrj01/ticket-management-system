@@ -4,6 +4,43 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+
+## [0.4.0] - 2026-06-01
+
+### Added
+
+#### Role-Based Access Control (RBAC)
+
+- Admin role dependency (`require_admin`)
+- Admin-only route protection
+- Admin authentication and authorization
+- Role-based endpoint access control
+
+#### Admin Module
+
+- Admin test endpoint (`GET /admin/test`)
+- Get all tickets API (`GET /admin/tickets`)
+- Update any ticket API (`PATCH /admin/tickets/{id}`)
+- System-wide ticket management
+
+### Security
+
+- Admin role validation
+- JWT-based role authorization
+- Protected admin routes
+- 403 Forbidden handling
+
+### Verified
+
+- Admin users can access admin endpoints
+- Regular users cannot access admin endpoints
+- Admin can view all tickets
+- Admin can update any ticket
+- Proper authorization checks working
+- 403 Forbidden responses working
+
+---
+
 ## [0.3.0] - 2026-06-01
 
 ### Added
@@ -162,15 +199,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## Upcoming [0.4.0]
+## Upcoming [0.5.0]
 
-### Role-Based Access Control (RBAC)
+### API Quality Improvements
 
-- Admin role dependency
-- Admin-only routes
-- View all tickets
-- Update any ticket
-- Admin ticket management
+- Pagination
+- Search
+- Filters
+- Sorting
+- Better Response Schemas
 
 ### Future
 

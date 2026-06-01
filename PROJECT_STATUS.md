@@ -53,26 +53,29 @@
 - Ticket Ownership Validation
 - 404 Error Handling
 
+### Role-Based Access Control (RBAC)
+- Admin Role Dependency (`require_admin`)
+- Admin-only Route Protection
+- Admin Test Endpoint (`GET /admin/test`)
+- Get All Tickets API (`GET /admin/tickets`)
+- Update Any Ticket API (`PATCH /admin/tickets/{id}`)
+- Admin Role Validation
+- 403 Forbidden Handling
+
 ---
 
 ## In Progress
 
-- Role-Based Access Control (RBAC)
+- API Quality Improvement
 
 ---
 
 ## Next
 
-### Admin Module
-- Admin Role Dependency
-- Get All Tickets API
-- Update Any Ticket API
-- Admin Ticket Management
-
-### Quality Improvements
-- Search & Filters
+### API Improvements
 - Pagination
-- Ticket Priority Updates
+- Search & Filters
+- Sorting
 - Better Response Schemas
 - Logging Improvements
 
@@ -94,7 +97,7 @@ main
 
 ## Version
 
-v0.3.0
+v0.4.0
 
 ---
 
@@ -106,14 +109,23 @@ v0.3.0
 
 ## Current Milestone
 
-Ticket Management Module Completed ✅
+RBAC + Admin Module Completed ✅
 
 ### Completed Versions
 
 - v0.1.0 Foundation ✅
 - v0.2.0 Authentication ✅
 - v0.3.0 Ticket Management ✅
+- v0.4.0 RBAC + Admin Module ✅
 
 ### Next Milestone
 
-v0.4.0 Role-Based Access Control (RBAC) & Admin Module
+v0.5.0 API Quality Improvements
+
+#### Planned Features
+
+- Pagination
+- Search
+- Filters
+- Sorting
+- Improved Response Models
