@@ -2,31 +2,32 @@
 
 ## Overview
 
-Ticket Management System is a production-oriented backend application designed for IT Support and Help Desk workflows.
+Ticket Management System is a full-stack, production-oriented application designed for IT Support and Help Desk workflows.
 
 Current Version:
 
 ```text
-v0.2.0
+v0.6.0
 ```
 
 ---
 
-## System Architecture
+## High-Level Architecture
 
 ```text
-Client
+User
 │
-├── Swagger UI
-├── React Frontend (Planned)
+├── React Frontend
 │
 ▼
 
-FastAPI Application
+FastAPI Backend
 │
 ├── Authentication Layer
-├── Business Logic Layer
-├── Database Layer
+├── Authorization Layer (RBAC)
+├── Ticket Management Layer
+├── Admin Management Layer
+├── API Validation Layer
 │
 ▼
 
@@ -35,26 +36,64 @@ PostgreSQL (Supabase)
 
 ---
 
-## Technology Stack
+## System Components
 
-### Frontend (Planned)
+```text
+Frontend
+│
+├── Login
+├── Register
+├── User Dashboard
+├── Admin Dashboard
+├── Protected Routes
+├── Ticket Search
+├── Ticket Filters
+│
+▼
+
+Backend
+│
+├── Auth Module
+├── Ticket Module
+├── Admin Module
+├── JWT Security
+├── RBAC
+│
+▼
+
+Database
+│
+├── Users
+└── Tickets
+```
+
+---
+
+# Technology Stack
+
+## Frontend
 
 ```text
 React
 TypeScript
+Vite
 Tailwind CSS
+Axios
+React Router DOM
 ```
 
-Purpose:
+Responsibilities:
 
-- Dashboard UI
 - Authentication UI
-- Ticket Management UI
-- Admin Panel
+- User Dashboard
+- Admin Dashboard
+- Ticket Management
+- Search & Filters
+- Protected Routing
 
 ---
 
-### Backend
+## Backend
 
 ```text
 FastAPI
@@ -65,12 +104,13 @@ Responsibilities:
 - Authentication
 - Authorization
 - Ticket Management
-- API Documentation
+- Admin Operations
 - Request Validation
+- API Documentation
 
 ---
 
-### Database
+## Database
 
 ```text
 PostgreSQL
@@ -86,26 +126,25 @@ Stores:
 
 - Users
 - Tickets
-- Audit Data (Future)
 
 ---
 
-### ORM
+## ORM
 
 ```text
 SQLAlchemy 2.0
 ```
 
-Purpose:
+Responsibilities:
 
-- Database Models
-- Queries
+- Models
 - Relationships
+- Query Building
 - Session Management
 
 ---
 
-### Database Migrations
+## Database Migrations
 
 ```text
 Alembic
@@ -114,44 +153,148 @@ Alembic
 Workflow:
 
 ```text
-Models
+SQLAlchemy Models
 ↓
-Migration
+Alembic Migration
 ↓
-Database Schema
+PostgreSQL Schema
 ```
 
 ---
 
-## Authentication Architecture
+# Authentication Architecture
 
-### Current
+## Flow
 
 ```text
-User Registration
+Register
 ↓
 Password Hashing (bcrypt)
 ↓
-Database Storage
+Store User
 ↓
-User Login
+Login
 ↓
-JWT Access Token
+Generate JWT
 ↓
-Protected Routes
-```
-
-### Components
-
-```text
-Passlib
-bcrypt
-python-jose
-HTTPBearer
-JWT
+Store Token (Frontend)
+↓
+GET /auth/me
+↓
+Determine User Role
+↓
+Redirect User
 ```
 
 ---
+
+## Security Components
+
+```text
+bcrypt
+Passlib
+JWT
+python-jose
+HTTPBearer
+```
+
+---
+
+# Authorization Architecture
+
+## Role-Based Access Control (RBAC)
+
+Supported Roles:
+
+```text
+user
+admin
+```
+
+### User Permissions
+
+```text
+Create Ticket
+View Own Tickets
+View Ticket Details
+Update Own Ticket Status
+```
+
+### Admin Permissions
+
+```text
+View All Tickets
+Update Any Ticket
+Access Admin Dashboard
+Manage System Tickets
+```
+
+---
+
+# Frontend Architecture
+
+## Routing
+
+```text
+/
+│
+├── /login
+├── /register
+├── /dashboard
+└── /admin
+```
+
+---
+
+## Route Protection
+
+```text
+ProtectedRoute
+│
+├── Dashboard
+└── Authenticated Pages
+```
+
+```text
+AdminRoute
+│
+└── Admin Dashboard
+```
+
+---
+
+## Frontend Structure
+
+```text
+frontend/src/
+
+├── api/
+│   ├── client.ts
+│   ├── auth.ts
+│   ├── tickets.ts
+│   └── admin.ts
+│
+├── pages/
+│   ├── Login.tsx
+│   ├── Register.tsx
+│   ├── Dashboard.tsx
+│   └── AdminDashboard.tsx
+│
+├── routes/
+│   ├── ProtectedRoute.tsx
+│   └── AdminRoute.tsx
+│
+├── types/
+│   ├── auth.ts
+│   └── ticket.ts
+│
+├── App.tsx
+└── main.tsx
+```
+
+---
+
+# Backend Architecture
 
 ## Project Structure
 
@@ -160,7 +303,11 @@ backend/
 
 app/
 ├── api/
-│   └── auth.py
+│   ├── auth.py
+│   ├── tickets.py
+│   ├── admin.py
+│   ├── dependencies.py
+│   └── admin_dependencies.py
 │
 ├── core/
 │   ├── config.py
@@ -175,16 +322,17 @@ app/
 │   └── ticket.py
 │
 ├── schemas/
-│   └── user.py
+│   ├── user.py
+│   └── ticket.py
 │
 └── main.py
 ```
 
 ---
 
-## Database Schema
+# Database Schema
 
-### Users
+## Users
 
 ```text
 users
@@ -198,7 +346,17 @@ created_at
 updated_at
 ```
 
-### Tickets
+### Relationship
+
+```text
+One User
+↓
+Many Tickets
+```
+
+---
+
+## Tickets
 
 ```text
 tickets
@@ -207,67 +365,178 @@ id
 title
 description
 status
+priority
 user_id
 created_at
+updated_at
 ```
 
 ---
 
-## API Architecture
+## Ticket Status
 
-### Public Routes
+```text
+open
+in_progress
+closed
+```
+
+---
+
+## Ticket Priority
+
+```text
+low
+medium
+high
+```
+
+---
+
+# API Architecture
+
+## Public Endpoints
 
 ```text
 POST /auth/register
 POST /auth/login
+
+GET  /health
 GET  /health/db
 ```
 
-### Protected Routes
+---
+
+## Protected Endpoints
 
 ```text
-GET /auth/me
-```
+GET   /auth/me
 
-Authentication Method:
-
-```text
-Bearer Token (JWT)
+POST  /tickets
+GET   /tickets
+GET   /tickets/{id}
+PATCH /tickets/{id}
 ```
 
 ---
 
-## Current Flow
+## Admin Endpoints
 
 ```text
-Register
-↓
-Login
-↓
-Receive JWT
-↓
-Authorize
-↓
-Access Protected Routes
+GET   /admin/test
+
+GET   /admin/tickets
+
+PATCH /admin/tickets/{id}
 ```
 
 ---
 
-## Deployment Architecture
+# Ticket Query Features
 
-### Backend
+## Pagination
 
 ```text
-Render (Planned)
+GET /tickets?page=1&limit=10
 ```
 
-### Frontend
+---
+
+## Search
+
+```text
+GET /tickets?search=laptop
+```
+
+---
+
+## Filters
+
+```text
+GET /tickets?status=open
+
+GET /tickets?priority=high
+```
+
+---
+
+## Sorting
+
+```text
+GET /tickets?sort=created_at
+
+GET /tickets?sort=-created_at
+
+GET /tickets?sort=priority
+```
+
+---
+
+# Request Lifecycle
+
+## User Ticket Flow
+
+```text
+React Frontend
+↓
+Axios Request
+↓
+FastAPI Route
+↓
+JWT Validation
+↓
+Business Logic
+↓
+SQLAlchemy
+↓
+PostgreSQL
+↓
+Response
+↓
+React UI Update
+```
+
+---
+
+## Admin Ticket Flow
+
+```text
+Admin Login
+↓
+JWT Validation
+↓
+Role Validation
+↓
+Admin Endpoint
+↓
+Database Operation
+↓
+Response
+↓
+Admin Dashboard
+```
+
+---
+
+# Deployment Architecture
+
+## Frontend
 
 ```text
 Vercel (Planned)
 ```
 
-### Database
+---
+
+## Backend
+
+```text
+Render (Planned)
+```
+
+---
+
+## Database
 
 ```text
 Supabase PostgreSQL
@@ -275,55 +544,71 @@ Supabase PostgreSQL
 
 ---
 
-## Upcoming Architecture Changes (v0.3.0)
+# Future Enhancements
 
-### Ticket Module
-
-```text
-POST   /tickets
-GET    /tickets
-GET    /tickets/{id}
-PATCH  /tickets/{id}
-```
-
-Features:
-
-- Ticket Creation
-- Ticket Listing
-- Ticket Status Updates
-- Priority Management
-
----
-
-## Future Enhancements
-
-### Authorization
-
-```text
-User
-Admin
-```
-
-Role-Based Access Control (RBAC)
-
-### Infrastructure
+## Infrastructure
 
 ```text
 Docker
+Docker Compose
 CI/CD
-Logging
+GitHub Actions
 Monitoring
-Caching
+Centralized Logging
 ```
 
-### Product Features
+---
+
+## Security
+
+```text
+Refresh Tokens
+Rate Limiting
+Audit Logs
+Account Lockout
+```
+
+---
+
+## Product Features
 
 ```text
 Ticket Assignment
 Email Notifications
 File Attachments
-Search
-Filters
-Pagination
+Comments
+Activity History
 Analytics Dashboard
+```
+
+---
+
+## Scalability
+
+```text
+Redis Caching
+Background Tasks
+Message Queues
+Microservices Exploration
+```
+
+---
+
+# Current Architecture Status
+
+```text
+✅ Authentication
+✅ JWT Authorization
+✅ Ticket Management
+✅ RBAC
+✅ Admin Module
+✅ Search
+✅ Filters
+✅ Pagination
+✅ Sorting
+✅ React Frontend
+✅ Protected Routes
+✅ Admin Dashboard
+
+Current Version: v0.6.0
 ```

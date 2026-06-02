@@ -1,17 +1,17 @@
 # Ticket Management System
 
-A production-oriented Ticket Management System built with FastAPI, PostgreSQL, SQLAlchemy, Alembic, and JWT Authentication.
+A production-oriented full-stack Ticket Management System built with FastAPI, PostgreSQL, SQLAlchemy, Alembic, React, TypeScript, and JWT Authentication.
 
 ---
 
-## Project Status
+# Project Status
 
-🚧 Currently in active development
+🚀 Active Development
 
 Current Version:
 
 ```text
-v0.5.0
+v0.6.0
 ```
 
 Completed:
@@ -31,95 +31,180 @@ Completed:
 - Search
 - Filters
 - Sorting
+- React Frontend
+- Login & Register Pages
+- User Dashboard
+- Admin Dashboard
+- Protected Routes
+- Admin Routes
+- Frontend-Backend Integration
 
 In Progress:
 
-- Frontend Integration
+- UI/UX Improvements
+- Production Readiness
 
 ---
 
-## Features
+# Features
 
-### Authentication ✅
+## Authentication ✅
 
 - User Registration
-- Login
+- User Login
 - Password Hashing (bcrypt)
 - JWT Authentication
 - Protected Endpoints
 - Current User Endpoint
+- Frontend Authentication
+- Role-based Redirects
 
-### Ticket Management ✅
+---
+
+## Ticket Management ✅
 
 - Create Ticket
 - View User Tickets
 - View Ticket Details
 - Update Ticket Status
-- Priority Management
-- Status Validation
+- Ticket Priority Management
+- Ticket Search
+- Status Filtering
+- Priority Filtering
+- Pagination
+- Sorting
 - Ownership Validation
 
-### Admin Features ✅
+---
+
+## Admin Features ✅
 
 - View All Tickets
 - Manage All Tickets
 - Update Any Ticket Status
 - Role-Based Access Control
 - Admin-only Routes
-- Admin Access Validation
+- Admin Dashboard
+- Admin Ticket Management
 
 ---
 
-## Tech Stack
+## Frontend Features ✅
 
-### Backend
-
-- FastAPI
-- SQLAlchemy 2.0
-- PostgreSQL
-- Alembic
-- Pydantic v2
-- JWT (python-jose)
-- Passlib + bcrypt
-
-### Database
-
-- PostgreSQL
-- Supabase
-
-### Frontend (Planned)
-
-- React
-- TypeScript
+- React + TypeScript + Vite
 - Tailwind CSS
+- Axios API Client
+- Login Page
+- Register Page
+- User Dashboard
+- Admin Dashboard
+- Protected Routes
+- Admin Route Protection
+- Create Ticket Form
+- My Tickets Table
+- Search & Filters
+- Logout Functionality
 
 ---
 
-## Project Structure
+## API Quality Improvements ✅
+
+- Pagination
+- Status Filtering
+- Priority Filtering
+- Ticket Search
+- Sorting
+- Combined Query Support
+- Query Validation
+
+---
+
+# Tech Stack
+
+## Frontend
+
+```text
+React
+TypeScript
+Vite
+Tailwind CSS
+Axios
+React Router DOM
+```
+
+---
+
+## Backend
+
+```text
+FastAPI
+SQLAlchemy 2.0
+Alembic
+Pydantic v2
+python-jose (JWT)
+Passlib + bcrypt
+```
+
+---
+
+## Database
+
+```text
+PostgreSQL
+Supabase
+```
+
+---
+
+# Project Structure
 
 ```text
 ticket-management-system/
 
 ├── backend/
+│
 │   ├── alembic/
+│
 │   ├── app/
-│   │   ├── api/
-│   │   │   ├── auth.py
-│   │   │   ├── tickets.py
-│   │   │   ├── admin.py
-│   │   │   ├── dependencies.py
-│   │   │   └── admin_dependencies.py
-│   │   ├── core/
-│   │   ├── db/
-│   │   ├── models/
-│   │   ├── schemas/
-│   │   └── main.py
+│   │
+│   ├── api/
+│   │   ├── auth.py
+│   │   ├── tickets.py
+│   │   ├── admin.py
+│   │   ├── dependencies.py
+│   │   └── admin_dependencies.py
+│   │
+│   ├── core/
+│   │   ├── config.py
+│   │   └── security.py
+│   │
+│   ├── db/
+│   │   ├── database.py
+│   │   └── dependencies.py
+│   │
+│   ├── models/
+│   │   ├── user.py
+│   │   └── ticket.py
+│   │
+│   ├── schemas/
+│   │   ├── user.py
+│   │   └── ticket.py
+│   │
+│   └── main.py
+│
 │   ├── .env.example
-│   ├── alembic.ini
-│   └── requirements.txt
+│   ├── requirements.txt
+│   └── alembic.ini
 │
 ├── frontend/
-├── docs/
+│
+│   └── src/
+│       ├── api/
+│       ├── pages/
+│       ├── routes/
+│       ├── types/
+│       ├── App.tsx
+│       └── main.tsx
 │
 ├── PROJECT_STATUS.md
 ├── ARCHITECTURE.md
@@ -130,23 +215,23 @@ ticket-management-system/
 
 ---
 
-## API Endpoints
+# API Endpoints
 
-### Authentication
+## Authentication
 
-#### Register User
+### Register User
 
 ```http
 POST /auth/register
 ```
 
-#### Login
+### Login User
 
 ```http
 POST /auth/login
 ```
 
-#### Current User
+### Current User
 
 ```http
 GET /auth/me
@@ -154,27 +239,27 @@ GET /auth/me
 
 ---
 
-### Ticket Management
+## Ticket Management
 
-#### Create Ticket
+### Create Ticket
 
 ```http
 POST /tickets
 ```
 
-#### Get User Tickets
+### Get User Tickets
 
 ```http
 GET /tickets
 ```
 
-#### Get Ticket Details
+### Get Ticket Details
 
 ```http
 GET /tickets/{id}
 ```
 
-#### Update Ticket Status
+### Update Ticket Status
 
 ```http
 PATCH /tickets/{id}
@@ -182,9 +267,37 @@ PATCH /tickets/{id}
 
 ---
 
-### System
+## Admin
 
-#### Database Health
+### Admin Test
+
+```http
+GET /admin/test
+```
+
+### Get All Tickets
+
+```http
+GET /admin/tickets
+```
+
+### Update Any Ticket
+
+```http
+PATCH /admin/tickets/{id}
+```
+
+---
+
+## System
+
+### Health Check
+
+```http
+GET /health
+```
+
+### Database Health
 
 ```http
 GET /health/db
@@ -192,79 +305,42 @@ GET /health/db
 
 ---
 
-### Admin
+# API Features
 
-#### Admin Test
+## Pagination
 
 ```http
-GET /admin/test
+GET /tickets?page=1&limit=10
 ```
-```http
-GET /admin/tickets
-```
-```http
-PATCH /admin/tickets/{id}
-```
+
 ---
 
-### Update Features Section
-
-Add:
-
-```md
-### API Quality Improvements ✅
-
-- Pagination
-- Status Filtering
-- Priority Filtering
-- Ticket Search
-- Sorting
-- Combined Query Support
-
-#### Get User Tickets
+## Status Filter
 
 ```http
-GET /tickets
-
-GET /tickets?page=1&limit=10
-
 GET /tickets?status=open
-
-GET /tickets?priority=high
-
-GET /tickets?search=laptop
-
-GET /tickets?sort=created_at
-
-GET /tickets?sort=-created_at
-
-GET /tickets?status=open&priority=high&page=1&limit=5
 ```
+
 ---
 
-### Add API Features Section
+## Priority Filter
 
-```md
-## API Features
-
-### Pagination
-
-```http
-GET /tickets?page=1&limit=10
-```
-### Status Filter
-```http
-GET /tickets?status=open 
-```
-### Priority Filter
 ```http
 GET /tickets?priority=high
 ```
-### Search
+
+---
+
+## Search
+
 ```http
 GET /tickets?search=laptop
 ```
-### Sorting
+
+---
+
+## Sorting
+
 ```http
 GET /tickets?sort=created_at
 
@@ -272,9 +348,20 @@ GET /tickets?sort=-created_at
 
 GET /tickets?sort=priority
 ```
+
 ---
 
-## Authentication Flow
+## Combined Queries
+
+```http
+GET /tickets?status=open&priority=high&page=1&limit=5
+
+GET /tickets?search=laptop&sort=-created_at
+```
+
+---
+
+# Authentication Flow
 
 ```text
 Register
@@ -283,21 +370,67 @@ Login
 ↓
 Receive JWT Token
 ↓
-Authorize Requests
+Store Token
+↓
+GET /auth/me
+↓
+Determine User Role
+↓
+Redirect User
 ↓
 Access Protected Endpoints
 ```
 
 ---
 
-## Local Development
+# Frontend Flow
 
-### Clone Repository
+```text
+Login
+↓
+Dashboard
+↓
+Create Ticket
+↓
+View Tickets
+↓
+Search Tickets
+↓
+Filter Tickets
+↓
+Logout
+```
+
+---
+
+# Admin Flow
+
+```text
+Admin Login
+↓
+Admin Dashboard
+↓
+View All Tickets
+↓
+Update Ticket Status
+↓
+Manage System Tickets
+```
+
+---
+
+# Local Development
+
+## Clone Repository
 
 ```bash
 git clone <repository-url>
 cd ticket-management-system
 ```
+
+---
+
+## Backend Setup
 
 ### Create Virtual Environment
 
@@ -305,8 +438,20 @@ cd ticket-management-system
 cd backend
 
 python -m venv myenv
+```
 
+### Activate Virtual Environment
+
+Linux/Mac:
+
+```bash
 source myenv/bin/activate
+```
+
+Windows:
+
+```bash
+myenv\Scripts\activate
 ```
 
 ### Install Dependencies
@@ -336,9 +481,11 @@ SECRET_KEY=your-secret-key
 
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+BACKEND_CORS_ORIGINS=["http://localhost:5173"]
 ```
 
-### Run Application
+### Run Backend
 
 ```bash
 uvicorn app.main:app --reload
@@ -346,15 +493,29 @@ uvicorn app.main:app --reload
 
 ---
 
-## API Documentation
+## Frontend Setup
 
-Swagger UI:
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+---
+
+# API Documentation
+
+## Swagger UI
 
 ```text
 http://127.0.0.1:8000/docs
 ```
 
-ReDoc:
+---
+
+## ReDoc
 
 ```text
 http://127.0.0.1:8000/redoc
@@ -362,23 +523,23 @@ http://127.0.0.1:8000/redoc
 
 ---
 
-## Database Workflow
+# Database Workflow
 
 ```text
 SQLAlchemy Models
 ↓
 Alembic Migration
 ↓
-PostgreSQL
+PostgreSQL Database
 ```
 
-Create Migration:
+### Create Migration
 
 ```bash
 alembic revision --autogenerate -m "migration_name"
 ```
 
-Apply Migration:
+### Apply Migration
 
 ```bash
 alembic upgrade head
@@ -386,52 +547,84 @@ alembic upgrade head
 
 ---
 
-## Development Roadmap
+# Development Roadmap
 
-### v0.1.0 ✅
+## v0.1.0 ✅
 
 - Foundation Setup
 
-### v0.2.0 ✅
+## v0.2.0 ✅
 
 - Authentication Module
 
-### v0.3.0 ✅
+## v0.3.0 ✅
 
 - Ticket Management Module
 
-### v0.4.0 ✅
+## v0.4.0 ✅
 
-- Role-Based Access Control
-- Admin Ticket Management
+- RBAC
+- Admin Module
 
-### v0.5.0 ✅
+## v0.5.0 ✅
 
-- Search & Filters
 - Pagination
+- Search
 - Filters
 - Sorting
 
-### v0.6.0 ⏳
+## v0.6.0 ✅
 
-- Frontend Integration
+- React Frontend
+- Authentication UI
+- User Dashboard
+- Admin Dashboard
+- Frontend-Backend Integration
 
-### v1.0.0
+## v0.7.0 🚧
 
-- Production Deployment
+- Loading States
+- Toast Notifications
+- Better Error Handling
+- Dashboard Statistics
+- UI Improvements
+
+## v1.0.0 🎯
+
 - Docker
 - CI/CD
+- Deployment
 - Monitoring
 - Logging
+- Production Release
 
 ---
 
-## Author
+# Current Progress
 
+```text
+Backend Development      ██████████ 100%
+Authentication           ██████████ 100%
+Ticket Management        ██████████ 100%
+RBAC                     ██████████ 100%
+Admin Module             ██████████ 100%
+Frontend Integration     ██████████ 100%
+UI/UX Improvements       ███░░░░░░░ 30%
+Deployment               ░░░░░░░░░░ 0%
+
+Overall Progress         ████████░░ 85%
+```
+
+---
+
+# Author
+
+```text
 Alok Ranjan
+```
 
 ---
 
-## License
+# License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License. See the LICENSE file for details.

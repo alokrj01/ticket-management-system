@@ -12,6 +12,10 @@ class Settings(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
+    BACKEND_CORS_ORIGINS: list[str] = [
+        "http://localhost:5173"
+    ]
+
     model_config = SettingsConfigDict(
         env_file=".env",
         extra="ignore"
