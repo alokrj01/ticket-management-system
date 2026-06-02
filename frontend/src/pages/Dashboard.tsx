@@ -1,18 +1,32 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-import {
-  getTickets,
-  createTicket,
-} from "../api/tickets";
+import { createTicket } from "../api/tickets";
 
-import type {
-  Ticket,
-  TicketStatus,
-  TicketPriority,
-} from "../types/ticket";
+import type { TicketPriority } from "../types/ticket";
+
+import { useTickets } from "../hooks/useTickets";
+
+import DashboardHeader from "../components/dashboard/DashboardHeader";
+import StatsCards from "../components/dashboard/StatsCards";
+import CreateTicketForm from "../components/dashboard/CreateTicketForm";
+import Filters from "../components/dashboard/Filters";
+import TicketsTable from "../components/dashboard/TicketsTable";
+import LogoutModal from "../components/dashboard/LogoutModal";
 
 function Dashboard() {
-  const [tickets, setTickets] = useState<Ticket[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = "Dashboard | TicketFlow";
+  }, []);
+
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const [creating, setCreating] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -20,31 +34,22 @@ function Dashboard() {
   const [priority, setPriority] =
     useState<TicketPriority>("medium");
 
-  const [statusFilter, setStatusFilter] =
-    useState<TicketStatus | "">("");
+  const [sort, setSort] =
+    useState("-created_at");
 
-  const [priorityFilter, setPriorityFilter] =
-    useState<TicketPriority | "">("");
-
-  const [search, setSearch] = useState("");
-
-  const fetchTickets = async () => {
-    try {
-      const data = await getTickets(
-        statusFilter,
-        priorityFilter,
-        search
-      );
-
-      setTickets(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchTickets();
-  }, [statusFilter, priorityFilter, search]);
+  const {
+    tickets,
+    loading,
+    page,
+    setPage,
+    search,
+    setSearch,
+    statusFilter,
+    setStatusFilter,
+    priorityFilter,
+    setPriorityFilter,
+    fetchTickets,
+  } = useTickets(sort);
 
   const handleCreateTicket = async (
     e: React.FormEvent
@@ -52,6 +57,14 @@ function Dashboard() {
     e.preventDefault();
 
     try {
+      setError("");
+      setSuccess("");
+
+      setCreating(true);
+
+      const toastId =
+        toast.loading("Creating ticket...");
+
       await createTicket({
         title,
         description,
@@ -62,194 +75,144 @@ function Dashboard() {
       setDescription("");
       setPriority("medium");
 
-      fetchTickets();
+      await fetchTickets();
+
+      toast.success(
+        "Ticket created successfully",
+        {
+          id: toastId,
+        }
+      );
     } catch (error) {
       console.error(error);
+
+      toast.error(
+        "Failed to create ticket"
+      );
+    } finally {
+      setCreating(false);
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
-    
-    window.location.href = "/login";
+
+    toast.success(
+      "Logged out successfully"
+    );
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000);
   };
 
+  const totalTickets = tickets.length;
+
+  const openTickets = tickets.filter(
+    (ticket) =>
+      ticket.status === "open"
+  ).length;
+
+  const inProgressTickets =
+    tickets.filter(
+      (ticket) =>
+        ticket.status ===
+        "in_progress"
+    ).length;
+
+  const closedTickets =
+    tickets.filter(
+      (ticket) =>
+        ticket.status === "closed"
+    ).length;
+
+  const isFiltering =
+    search ||
+    statusFilter ||
+    priorityFilter;
+
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">
-          My Tickets
-        </h1>
+    <div className="min-h-screen bg-slate-50 max-w-7xl mx-auto p-6">
 
-        <button
-          onClick={handleLogout}
-          className="bg-red-500 text-white px-4 py-2 rounded"
-        >
-          Logout
-        </button>
-      </div>
+      {success && (
+        <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
+          {success}
+        </div>
+      )}
 
-      {/* Create Ticket Form */}
-      <form
-        onSubmit={handleCreateTicket}
-        className="flex flex-col gap-4 mb-8"
-      >
-        <input
-          type="text"
-          placeholder="Ticket Title"
-          value={title}
-          onChange={(e) =>
-            setTitle(e.target.value)
-          }
-          className="border p-2 rounded"
-          required
-        />
+      {error && (
+        <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
+          {error}
+        </div>
+      )}
 
-        <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) =>
-            setDescription(e.target.value)
-          }
-          className="border p-2 rounded"
-          required
-        />
+      <DashboardHeader
+        onLogout={() =>
+          setShowLogoutModal(true)
+        }
+      />
 
-        <select
-          value={priority}
-          onChange={(e) =>
-            setPriority(
-              e.target.value as TicketPriority
-            )
-          }
-          className="border p-2 rounded"
-        >
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
+      <StatsCards
+        total={totalTickets}
+        open={openTickets}
+        inProgress={
+          inProgressTickets
+        }
+        closed={closedTickets}
+      />
 
-        <button
-          type="submit"
-          className="bg-blue-600 text-white p-2 rounded"
-        >
-          Create Ticket
-        </button>
-      </form>
+      <CreateTicketForm
+        title={title}
+        setTitle={setTitle}
+        description={description}
+        setDescription={
+          setDescription
+        }
+        priority={priority}
+        setPriority={setPriority}
+        sort={sort}
+        setSort={setSort}
+        creating={creating}
+        onSubmit={
+          handleCreateTicket
+        }
+      />
 
-      {/* Filters */}
-      <div className="flex gap-4 mb-6">
-        <input
-          type="text"
-          placeholder="Search tickets..."
-          value={search}
-          onChange={(e) =>
-            setSearch(e.target.value)
-          }
-          className="border p-2 rounded"
-        />
+      <Filters
+        search={search}
+        setSearch={setSearch}
+        statusFilter={
+          statusFilter
+        }
+        setStatusFilter={
+          setStatusFilter
+        }
+        priorityFilter={
+          priorityFilter
+        }
+        setPriorityFilter={
+          setPriorityFilter
+        }
+      />
 
-        <select
-          value={statusFilter}
-          onChange={(e) =>
-            setStatusFilter(
-              e.target.value as TicketStatus | ""
-            )
-          }
-          className="border p-2 rounded"
-        >
-          <option value="">
-            All Status
-          </option>
+      <TicketsTable
+        loading={loading}
+        tickets={tickets}
+        page={page}
+        setPage={setPage}
+        isFiltering={
+          !!isFiltering
+        }
+      />
 
-          <option value="open">
-            Open
-          </option>
-
-          <option value="in_progress">
-            In Progress
-          </option>
-
-          <option value="closed">
-            Closed
-          </option>
-        </select>
-
-        <select
-          value={priorityFilter}
-          onChange={(e) =>
-            setPriorityFilter(
-              e.target.value as TicketPriority | ""
-            )
-          }
-          className="border p-2 rounded"
-        >
-          <option value="">
-            All Priorities
-          </option>
-
-          <option value="low">
-            Low
-          </option>
-
-          <option value="medium">
-            Medium
-          </option>
-
-          <option value="high">
-            High
-          </option>
-        </select>
-      </div>
-
-      {/* Tickets Table */}
-      <table className="w-full border">
-        <thead>
-          <tr>
-            <th className="border p-2">
-              Title
-            </th>
-
-            <th className="border p-2">
-              Status
-            </th>
-
-            <th className="border p-2">
-              Priority
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {tickets.length === 0 ? (
-            <tr>
-              <td
-                colSpan={3}
-                className="border p-4 text-center"
-              >
-                No tickets found
-              </td>
-            </tr>
-          ) : (
-            tickets.map((ticket) => (
-              <tr key={ticket.id}>
-                <td className="border p-2">
-                  {ticket.title}
-                </td>
-
-                <td className="border p-2">
-                  {ticket.status}
-                </td>
-
-                <td className="border p-2">
-                  {ticket.priority}
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+      <LogoutModal
+        open={showLogoutModal}
+        onClose={() =>
+          setShowLogoutModal(false)
+        }
+        onConfirm={handleLogout}
+      />
     </div>
   );
 }

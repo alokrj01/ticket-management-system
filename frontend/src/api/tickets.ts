@@ -4,7 +4,8 @@ export const getTickets = async (
   status?: string,
   priority?: string,
   search?: string,
-  sort?: string
+  sort?: string,
+  page?: number
 ) => {
   const params: Record<string, string> = {};
 
@@ -12,6 +13,7 @@ export const getTickets = async (
   if (priority) params.priority = priority;
   if (search) params.search = search;
   if (sort) params.sort = sort;
+  if (page) params.page = String(page);
 
   const response = await api.get("/tickets", {
     params,
