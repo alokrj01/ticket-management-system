@@ -7,7 +7,7 @@ Ticket Management System is a production-oriented full-stack application designe
 Current Version:
 
 ```text
-v0.7.0
+v0.7.1
 ```
 
 ---
@@ -623,12 +623,12 @@ UI Update
 
 ---
 
-# Deployment Architecture
+# Production Architecture
 
 ## Frontend
 
 ```text
-Vercel (Planned)
+Vercel (Production)
 ```
 
 ---
@@ -636,7 +636,7 @@ Vercel (Planned)
 ## Backend
 
 ```text
-Render (Planned)
+Render (Production)
 ```
 
 ---
@@ -647,6 +647,23 @@ Render (Planned)
 Supabase PostgreSQL
 ```
 
+---
+
+```text
+Users
+│
+▼
+Vercel Frontend
+(ticketflow.vercel.app)
+│
+▼
+Render FastAPI Backend
+(ticket-management-system.onrender.com)
+│
+▼
+Supabase PostgreSQL
+(Mumbai Region)
+```
 ---
 
 # Future Enhancements
@@ -733,7 +750,11 @@ Microservices Exploration
 ✅ Loading States
 ✅ Toast Notifications
 ✅ Logout Modal
+✅ Backend Deployment (Render)
+✅ Frontend Deployment (Vercel)
+✅ Production Database (Supabase)
+✅ Production Environment Variables
 
-Current Version: v0.7.0
-Architecture Maturity: Intermediate Production Ready
+Current Version: v0.7.1
+Architecture Maturity: Production Ready MVP
 ```

@@ -4,14 +4,33 @@ A production-oriented full-stack Ticket Management System built with FastAPI, Po
 
 ---
 
+## Live Demo
+
+Frontend:
+https://your-vercel-url.vercel.app
+
+Backend API:
+https://ticket-management-system-vear.onrender.com
+
+API Docs:
+https://ticket-management-system-vear.onrender.com/docs
+
+---
+
+## Application Preview
+
+![TicketFlow Landing Page](frontend/public/screenshots/landing-page.png)
+
+---
+
 # Project Status
 
-🚀 Feature complete (MVP)
+🚀 Feature Deployed (MVP Complete)
 
 Current Version:
 
 ```text
-v0.7.0
+v0.7.1
 ```
 
 Completed:
@@ -48,6 +67,7 @@ Completed:
 - Dashboard Component Architecture
 - Custom Document Titles
 - Responsive Dashboard UI
+- Production deployment
 
 Future Progress:
 
@@ -649,12 +669,26 @@ alembic upgrade head
 
 - Docker
 - CI/CD
-- Deployment
 - Monitoring
 - Logging
 - Production Release
 
 ---
+
+# Deployment
+
+## Frontend
+```text
+Vercel
+```
+## Backend
+```text
+Render
+```
+## Database
+```text
+Supabase PostgreSQL
+```
 
 # Current Progress
 
@@ -667,9 +701,10 @@ Admin Module             ██████████ 100%
 Frontend Integration     ██████████ 100%
 UI/UX Improvements       ████████░░ 80%
 Code Refactoring         ███████░░░ 70%
-Deployment               ░░░░░░░░░░ 0%
+Backend Deployment       ██████████ 100%
+Frontend Deployment      ██████████ 100%
 
-Overall Progress         █████████░░ 92%
+Overall Progress         ██████████ 95%
 ```
 
 ---

@@ -13,7 +13,8 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
     BACKEND_CORS_ORIGINS: list[str] = [
-        "http://localhost:5173"
+        "http://localhost:5173",
+        "https://ticket-management-system-2azl90s1u.vercel.app/"
     ]
 
     model_config = SettingsConfigDict(
