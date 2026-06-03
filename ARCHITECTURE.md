@@ -2,17 +2,17 @@
 
 ## Overview
 
-Ticket Management System is a full-stack, production-oriented application designed for IT Support and Help Desk workflows.
+Ticket Management System is a production-oriented full-stack application designed for Help Desk and IT Support workflows.
 
 Current Version:
 
 ```text
-v0.6.0
+v0.7.0
 ```
 
 ---
 
-## High-Level Architecture
+# High-Level Architecture
 
 ```text
 User
@@ -27,7 +27,7 @@ FastAPI Backend
 ├── Authorization Layer (RBAC)
 ├── Ticket Management Layer
 ├── Admin Management Layer
-├── API Validation Layer
+├── Validation Layer
 │
 ▼
 
@@ -36,18 +36,20 @@ PostgreSQL (Supabase)
 
 ---
 
-## System Components
+# System Components
 
 ```text
 Frontend
 │
-├── Login
-├── Register
+├── Authentication Pages
 ├── User Dashboard
 ├── Admin Dashboard
 ├── Protected Routes
+├── Reusable Components
+├── Custom Hooks
 ├── Ticket Search
-├── Ticket Filters
+├── Filters
+├── Pagination
 │
 ▼
 
@@ -58,6 +60,7 @@ Backend
 ├── Admin Module
 ├── JWT Security
 ├── RBAC
+├── Validation
 │
 ▼
 
@@ -80,16 +83,21 @@ Vite
 Tailwind CSS
 Axios
 React Router DOM
+React Hot Toast
+React Icons
 ```
 
 Responsibilities:
 
 - Authentication UI
-- User Dashboard
+- Dashboard UI
 - Admin Dashboard
 - Ticket Management
 - Search & Filters
+- Pagination
 - Protected Routing
+- API Communication
+- State Management
 
 ---
 
@@ -177,13 +185,13 @@ Login
 ↓
 Generate JWT
 ↓
-Store Token (Frontend)
+Store Token
 ↓
 GET /auth/me
 ↓
 Determine User Role
 ↓
-Redirect User
+Role-based Redirect
 ```
 
 ---
@@ -202,7 +210,7 @@ HTTPBearer
 
 # Authorization Architecture
 
-## Role-Based Access Control (RBAC)
+## RBAC
 
 Supported Roles:
 
@@ -263,7 +271,7 @@ AdminRoute
 
 ---
 
-## Frontend Structure
+# Frontend Folder Structure
 
 ```text
 frontend/src/
@@ -280,6 +288,25 @@ frontend/src/
 │   ├── Dashboard.tsx
 │   └── AdminDashboard.tsx
 │
+├── components/
+│   │
+│   ├── dashboard/
+│   │   ├── DashboardHeader.tsx
+│   │   ├── StatsCards.tsx
+│   │   ├── CreateTicketForm.tsx
+│   │   ├── Filters.tsx
+│   │   ├── TicketsTable.tsx
+│   │   └── LogoutModal.tsx
+│   │
+│   └── common/
+│       └── LoadingSpinner.tsx
+│
+├── hooks/
+│   └── useTickets.ts
+│
+├── utils/
+│   └── ticketHelpers.ts
+│
 ├── routes/
 │   ├── ProtectedRoute.tsx
 │   └── AdminRoute.tsx
@@ -290,6 +317,90 @@ frontend/src/
 │
 ├── App.tsx
 └── main.tsx
+```
+
+---
+
+# Component Architecture
+
+## Dashboard Page
+
+```text
+Dashboard
+│
+├── DashboardHeader
+├── StatsCards
+├── CreateTicketForm
+├── Filters
+├── TicketsTable
+├── LogoutModal
+└── useTickets Hook
+```
+
+---
+
+## Responsibilities
+
+### DashboardHeader
+
+```text
+Page title
+Logout button
+```
+
+### StatsCards
+
+```text
+Total Tickets
+Open Tickets
+In Progress Tickets
+Closed Tickets
+```
+
+### CreateTicketForm
+
+```text
+Create Ticket
+Priority Selection
+Sorting Selection
+Form Validation
+```
+
+### Filters
+
+```text
+Search
+Status Filter
+Priority Filter
+```
+
+### TicketsTable
+
+```text
+Table UI
+Empty State
+Pagination
+Status Badges
+Priority Badges
+```
+
+### LogoutModal
+
+```text
+Logout Confirmation
+Cancel Action
+Logout Action
+```
+
+### useTickets Hook
+
+```text
+Fetch Tickets
+Pagination
+Search
+Filters
+Loading State
+Refresh Logic
 ```
 
 ---
@@ -346,7 +457,7 @@ created_at
 updated_at
 ```
 
-### Relationship
+Relationship:
 
 ```text
 One User
@@ -401,8 +512,8 @@ high
 POST /auth/register
 POST /auth/login
 
-GET  /health
-GET  /health/db
+GET /health
+GET /health/db
 ```
 
 ---
@@ -424,9 +535,7 @@ PATCH /tickets/{id}
 
 ```text
 GET   /admin/test
-
 GET   /admin/tickets
-
 PATCH /admin/tickets/{id}
 ```
 
@@ -440,15 +549,11 @@ PATCH /admin/tickets/{id}
 GET /tickets?page=1&limit=10
 ```
 
----
-
 ## Search
 
 ```text
 GET /tickets?search=laptop
 ```
-
----
 
 ## Filters
 
@@ -457,8 +562,6 @@ GET /tickets?status=open
 
 GET /tickets?priority=high
 ```
-
----
 
 ## Sorting
 
@@ -477,7 +580,9 @@ GET /tickets?sort=priority
 ## User Ticket Flow
 
 ```text
-React Frontend
+React Component
+↓
+Custom Hook
 ↓
 Axios Request
 ↓
@@ -493,7 +598,7 @@ PostgreSQL
 ↓
 Response
 ↓
-React UI Update
+React Re-render
 ```
 
 ---
@@ -501,7 +606,7 @@ React UI Update
 ## Admin Ticket Flow
 
 ```text
-Admin Login
+Admin Dashboard
 ↓
 JWT Validation
 ↓
@@ -513,7 +618,7 @@ Database Operation
 ↓
 Response
 ↓
-Admin Dashboard
+UI Update
 ```
 
 ---
@@ -545,6 +650,18 @@ Supabase PostgreSQL
 ---
 
 # Future Enhancements
+
+## Frontend
+
+```text
+React Query
+React Hook Form
+Zod Validation
+Dark Mode
+Dashboard Charts
+```
+
+---
 
 ## Infrastructure
 
@@ -609,6 +726,14 @@ Microservices Exploration
 ✅ React Frontend
 ✅ Protected Routes
 ✅ Admin Dashboard
+✅ Reusable Components
+✅ Custom Hooks
+✅ Component-Based Architecture
+✅ Dashboard Statistics
+✅ Loading States
+✅ Toast Notifications
+✅ Logout Modal
 
-Current Version: v0.6.0
+Current Version: v0.7.0
+Architecture Maturity: Intermediate Production Ready
 ```
