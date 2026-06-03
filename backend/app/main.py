@@ -42,7 +42,7 @@ def root():
 @app.get("/health")
 def health_check():
     return {
-        "status": "ok"
+        "status": "healthy"
     }
 
 @app.get("/health/db")
@@ -51,5 +51,5 @@ def database_health():
     conn.execute(text("SELECT 1"))
 
   return{
-     "status": "connected"
+     "status": "database healthy"
   }
