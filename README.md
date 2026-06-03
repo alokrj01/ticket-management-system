@@ -19,7 +19,7 @@ https://ticket-management-system-vear.onrender.com/docs
 
 ## Application Preview
 
-![TicketFlow Landing Page](frontend/public/screenshots/landing-page.png)
+![TicketFlow Landing Page](https://github.com/alokrj01/ticket-management-system/blob/main/frontend/public/screenshots/Screenshot%20from%202026-06-03%2010-26-47.png)
 
 ---
 
@@ -712,7 +712,7 @@ Overall Progress         ██████████ 95%
 # Author
 
 ```text
-Alok Ranjan
+Alok Ranjan 
 ```
 
 ---
